@@ -86,3 +86,27 @@ class BSTSolver:
             parent = ancestor
             ancestor = ancestor.right
         return parent
+    
+    def level_order_traversal(self) -> None:
+        height: int = self.__get_height(self.root)
+        for i in range(height):
+            self.__print_level(self.root, i)
+            print()
+
+    def __get_height(self, rootnode: TreeNode) -> int:
+        if rootnode is None:
+            return 0
+     
+        left_subtree_height: int = self.__get_height(rootnode.left)
+        right_subtree_height: int = self.__get_height(rootnode.right)
+     
+        return 1 + max(left_subtree_height, right_subtree_height)
+
+    def __print_level(self, rootnode: TreeNode, level: int) -> None:
+        if rootnode is None:
+            return
+        if 0 == level:
+            print(rootnode.key, end=' ')
+        else:
+            self.__print_level(rootnode.left, level - 1)
+            self.__print_level(rootnode.right, level - 1)
